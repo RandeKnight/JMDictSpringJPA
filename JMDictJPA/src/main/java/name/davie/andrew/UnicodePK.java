@@ -1,6 +1,7 @@
 package name.davie.andrew;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 /**
@@ -16,9 +17,13 @@ public class UnicodePK implements Serializable {
 	private String unicode;
 
 	@Column(name="ENT_SEQ")
-	private String entSeq;
+	private String ent_seq;
 
 	public UnicodePK() {
+	}
+	public UnicodePK(String unicode, String ent_seq) {
+		this.unicode=unicode;
+		this.ent_seq=ent_seq;
 	}
 	public String getUnicode() {
 		return this.unicode;
@@ -27,10 +32,10 @@ public class UnicodePK implements Serializable {
 		this.unicode = unicode;
 	}
 	public String getEntSeq() {
-		return this.entSeq;
+		return this.ent_seq;
 	}
 	public void setEntSeq(String entSeq) {
-		this.entSeq = entSeq;
+		this.ent_seq = entSeq;
 	}
 
 	public boolean equals(Object other) {
@@ -43,14 +48,14 @@ public class UnicodePK implements Serializable {
 		UnicodePK castOther = (UnicodePK)other;
 		return 
 			this.unicode.equals(castOther.unicode)
-			&& this.entSeq.equals(castOther.entSeq);
+			&& this.ent_seq.equals(castOther.ent_seq);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
 		hash = hash * prime + this.unicode.hashCode();
-		hash = hash * prime + this.entSeq.hashCode();
+		hash = hash * prime + this.ent_seq.hashCode();
 		
 		return hash;
 	}

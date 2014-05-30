@@ -13,54 +13,54 @@ import java.util.Set;
 @Table(name="SENSE")
 @NamedQuery(name="Sense.findAll", query="SELECT s FROM Sense s")
 public class Sense implements Serializable {
-	private static final long serialVersionUID = 1L;
+	protected static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID")
-	private String id;
+	protected String id;
 
 	@Column(name="ANT")
-	private String ant;
+	protected String ant;
 
 	@Column(name="DIAL")
-	private String dial;
+	protected String dial;
 
 	@Column(name="EXAMPLE")
-	private String example;
+	protected String example;
 
 	@Column(name="FIELD")
-	private String field;
+	protected String field;
 
 	@Column(name="GLOSS")
-	private String gloss;
+	protected String gloss;
 
 	@Column(name="MISC")
-	private String misc;
+	protected String misc;
 
 	@Column(name="POS")
-	private String pos;
+	protected String pos;
 
 	@Column(name="S_INF")
-	private String sInf;
+	protected String sInf;
 
 	@Column(name="STAGK")
-	private String stagk;
+	protected String stagk;
 
 	@Column(name="STAGR")
-	private String stagr;
+	protected String stagr;
 
 	@Column(name="XREF")
-	private String xref;
+	protected String xref;
 
 	//bi-directional many-to-one association to Lsource
 	@OneToMany(mappedBy="sense")
-	private Set<Lsource> lsources;
+	protected Set<Lsource> lsources;
 
 	//bi-directional many-to-one association to Entry
 	@ManyToOne
 	@JoinColumn(name="ENTRY_ENT_SEQ")
-	private Entry entry;
+	protected Entry entry;
 
 	public Sense() {
 	}

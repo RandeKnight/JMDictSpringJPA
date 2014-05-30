@@ -27,6 +27,9 @@ public class Unicode implements Serializable {
 
 	public Unicode() {
 	}
+	public Unicode(String unicode, Long ent_seq) {
+		this.id = new UnicodePK(unicode, Long.toString(ent_seq));
+	}
 
 	public UnicodePK getId() {
 		return this.id;

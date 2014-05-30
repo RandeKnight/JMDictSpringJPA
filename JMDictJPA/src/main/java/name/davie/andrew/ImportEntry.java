@@ -1,9 +1,16 @@
 package name.davie.andrew;
-
+/*
+ * Import the J-E dictionary data.  
+ * Also populates the entry-character join table.
+ * 
+ * 
+ */
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -13,14 +20,17 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-@ContextConfiguration
+
 public class ImportEntry {
-	@PersistenceContext
-	private static EntityManager em;
+	private static final String PERSISTENCE_UNIT_NAME = "JMDictJPA";
+	private static EntityManagerFactory factory;
+	  
+	
 	public static void main(String[] args) {
 		
 		try {
-
+			factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		    final EntityManager em = factory.createEntityManager();
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
 			
@@ -40,6 +50,9 @@ public class ImportEntry {
 						entry = new Entry();
 						currObject = entry;
 						break;
+					case "re_nokanji":
+						entry.setReNokanji("y");
+						break;
 					case "sense":
 						sense = new Sense();
 						entry.addSense(sense);
@@ -58,12 +71,49 @@ public class ImportEntry {
 
 				}
 
+
+
+				public void characters(char ch[], int start, int length)
+						throws SAXException {
+					if (entry==null) {
+						//ignore anything outside of an entry.
+						return;
+					}
+					String thisString = new String(ch, start, length);
+
+					//System.out.println("nodeName="+thisNode+" value1="+thisString);
+				
+					switch (thisNode) {
+					case "ent_seq":
+						System.out.println("entseq="+thisString);
+						entry.setEntSeq(thisString);
+						break;
+					case "keb":
+						//split and record any kanji characters (4e00 to 9faf)
+						for (int n=0;n<thisString.length();n++) {
+							if (thisString.codePointAt(n)>=0x4e00 && thisString.codePointAt(n)<=0x9faf) {
+								Unicode unicode = new Unicode(Long.toString(thisString.codePointAt(n)),entry.getEntSeq());
+								unicode.setEntry(entry);
+								unicode.setLiteral(java.lang.Character.toString(thisString.charAt(n)));
+								entry.addUnicode(unicode);
+							}
+						}
+						break;
+					default:
+						thisValue.add(thisString);
+					}
+				}
 				public void endElement(String uri, String localName,
 						String qName) throws SAXException {
 
 					switch (qName) {
+					case "ent_seq":
+						break; //ignore
 					case "entry":
+						em.getTransaction().begin();
 						em.merge(entry);
+						em.getTransaction().commit();
+						entry=null;
 						break;
 					case "sense":
 						currObject = entry;
@@ -75,31 +125,9 @@ public class ImportEntry {
 						Utils.setField(currObject, thisNode, thisValue.toString());
 					}
 				}
-
-				public void characters(char ch[], int start, int length)
-						throws SAXException {
-					String thisString = new String(ch);
-					switch (thisString) {
-					case "ent_seq":
-						entry.setEntSeq(thisString);
-						break;
-					case "keb":
-						//split and record any kanji characters (4e00 to 9faf)
-						for (int n=0;n<thisString.length();n++) {
-							if (thisString.codePointAt(n)>=0x4e00 && thisString.codePointAt(n)<=0x9faf) {
-								Unicode unicode = new Unicode();
-								unicode.setEntry(entry);
-								unicode.setLiteral(java.lang.Character.toString(thisString.charAt(n)));
-								entry.addUnicode(unicode);
-							}
-						}
-					default:
-						thisValue.add(thisString);
-					}
-				}
 			};
 
-			saxParser.parse("main/resources/JMdict_e", handler);
+			saxParser.parse("src/main/resources/JMdict_e", handler);
 
 		} catch (Exception e) {
 			e.printStackTrace();

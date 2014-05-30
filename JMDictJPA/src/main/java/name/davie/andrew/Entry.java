@@ -16,74 +16,73 @@ import java.util.Set;
 @Table(name="ENTRY")
 @NamedQuery(name="Entry.findAll", query="SELECT e FROM Entry e")
 public class Entry implements Serializable {
-	private static final long serialVersionUID = 1L;
+	protected static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ENT_SEQ")
-	private String entSeq;
+	protected Long ent_seq;
 
 	@Column(name="KE_INF")
-	private String keInf;
+	protected String ke_inf;
 
 	@Column(name="KE_PRI")
-	private String kePri;
+	protected String ke_pri;
 
 	@Column(name="KEB")
-	private String keb;
+	protected String keb;
 
 	@Column(name="RE_INF")
-	private String reInf;
+	protected String re_inf;
 
 	@Column(name="RE_NOKANJI")
-	private String reNokanji;
+	protected String re_nokanji;
 
 	@Column(name="RE_PRI")
-	private String rePri;
+	protected String re_pri;
 
 	@Column(name="RE_RESTR")
-	private String reRestr;
+	protected String re_restr;
 
 	@Column(name="REB")
-	private String reb;
+	protected String reb;
 
 	//bi-directional many-to-one association to Audit
 	@OneToMany(mappedBy="entry")
-	private Set<Audit> audits = new HashSet<Audit>();
+	protected Set<Audit> audits = new HashSet<Audit>();
 
 	//bi-directional many-to-one association to Sense
 	@OneToMany(mappedBy="entry")
-	private Set<Sense> senses = new HashSet<Sense>();
+	protected Set<Sense> senses = new HashSet<Sense>();
 
 	//bi-directional many-to-one association to Unicode
 	@OneToMany(mappedBy="entry")
-	private Set<Unicode> unicodes = new HashSet<Unicode>();
+	protected Set<Unicode> unicodes = new HashSet<Unicode>();
 
 	public Entry() {
 	}
 
-	public String getEntSeq() {
-		return this.entSeq;
+	public Long getEntSeq() {
+		return this.ent_seq;
 	}
 
 	public void setEntSeq(String entSeq) {
-		this.entSeq = entSeq;
+		this.ent_seq = Long.parseLong(entSeq);
 	}
 
 	public String getKeInf() {
-		return this.keInf;
+		return this.ke_inf;
 	}
 
 	public void setKeInf(String keInf) {
-		this.keInf = keInf;
+		this.ke_inf = keInf;
 	}
 
 	public String getKePri() {
-		return this.kePri;
+		return this.ke_pri;
 	}
 
 	public void setKePri(String kePri) {
-		this.kePri = kePri;
+		this.ke_pri = kePri;
 	}
 
 	public String getKeb() {
@@ -95,35 +94,35 @@ public class Entry implements Serializable {
 	}
 
 	public String getReInf() {
-		return this.reInf;
+		return this.re_inf;
 	}
 
 	public void setReInf(String reInf) {
-		this.reInf = reInf;
+		this.re_inf = reInf;
 	}
 
 	public String getReNokanji() {
-		return this.reNokanji;
+		return this.re_nokanji;
 	}
 
 	public void setReNokanji(String reNokanji) {
-		this.reNokanji = reNokanji;
+		this.re_nokanji = reNokanji;
 	}
 
 	public String getRePri() {
-		return this.rePri;
+		return this.re_pri;
 	}
 
 	public void setRePri(String rePri) {
-		this.rePri = rePri;
+		this.re_pri = rePri;
 	}
 
 	public String getReRestr() {
-		return this.reRestr;
+		return this.re_restr;
 	}
 
 	public void setReRestr(String reRestr) {
-		this.reRestr = reRestr;
+		this.re_restr = reRestr;
 	}
 
 	public String getReb() {

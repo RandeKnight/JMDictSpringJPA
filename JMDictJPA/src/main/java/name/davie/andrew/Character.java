@@ -12,67 +12,67 @@ import javax.persistence.*;
 @Table(name="Characters")
 @NamedQuery(name="Character.findAll", query="SELECT c FROM Character c")
 public class Character implements Serializable {
-	private static final long serialVersionUID = 1L;
+	protected static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="UNICODE")
-	private String unicode;
+	protected String unicode;
 
 	@Column(name="CP_TYPE_JIS208")
-	private String cpTypeJis208;
+	protected String cpTypeJis208;
 
 	@Column(name="CP_TYPE_UCS")
-	private String cpTypeUcs;
+	protected String cpTypeUcs;
 
 	@Lob
 	@Column(name="DIC_NUMBERS")
-	private byte[] dicNumbers;
+	protected byte[] dicNumbers;
 
 	@Column(name="FREQ")
-	private int freq;
+	protected int freq;
 
 	@Column(name="GRADE")
-	private int grade;
+	protected int grade;
 
 	@Column(name="JA_KUN")
-	private String jaKun;
+	protected String jaKun;
 
 	@Column(name="JA_ON")
-	private String jaOn;
+	protected String jaOn;
 
 	@Column(name="JLPT")
-	private int jlpt;
+	protected int jlpt;
 
 	@Column(name="LITERAL")
-	private String literal;
+	protected String literal;
 
 	@Column(name="MEANING")
-	private String meaning;
+	protected String meaning;
 
 	@Column(name="NANORI")
-	private String nanori;
+	protected String nanori;
 
 	@Column(name="QUERY_CODE_DEROO")
-	private String queryCodeDeroo;
+	protected String queryCodeDeroo;
 
 	@Column(name="QUERY_CODE_FOUR_CORNER")
-	private String queryCodeFourCorner;
+	protected String queryCodeFourCorner;
 
 	@Column(name="QUERY_CODE_SH_DESC")
-	private String queryCodeShDesc;
+	protected String queryCodeShDesc;
 
 	@Column(name="QUERY_CODE_SKIP")
-	private String queryCodeSkip;
+	protected String queryCodeSkip;
 
 	@Column(name="RADICAL_CLASSICAL")
-	private int radicalClassical;
+	protected int radicalClassical;
 
 	@Column(name="RADICAL_NELSON")
-	private int radicalNelson;
+	protected int radicalNelson;
 
 	@Column(name="STROKE_COUNT")
-	private int strokeCount;
+	protected int strokeCount;
 
 	public Character() {
 	}
