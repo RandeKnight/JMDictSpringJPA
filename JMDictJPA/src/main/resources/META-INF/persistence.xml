@@ -8,6 +8,13 @@
 
         <class>name.davie.andrew.Item</class>
         <class>name.davie.andrew.Order</class>
+        <class>name.davie.andrew.Audit</class>
+        <class>name.davie.andrew.Character</class>
+        <class>name.davie.andrew.Entry</class>
+        <class>name.davie.andrew.Lsource</class>
+        <class>name.davie.andrew.Sense</class>
+        <class>name.davie.andrew.Unicode</class>
+        <class>name.davie.andrew.UnicodePK</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 	</persistence-unit>
