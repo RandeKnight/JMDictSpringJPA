@@ -16,6 +16,12 @@
         <class>name.davie.andrew.Unicode</class>
         <class>name.davie.andrew.UnicodePK</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/jmdict"/>
+			<property name="eclipselink.jdbc.user" value="root"/>
+			<property name="eclipselink.jdbc.password" value="warper21"/>
+			<property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+		</properties>
 
 	</persistence-unit>
 

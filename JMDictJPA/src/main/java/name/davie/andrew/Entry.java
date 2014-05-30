@@ -1,7 +1,10 @@
 package name.davie.andrew;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -46,15 +49,15 @@ public class Entry implements Serializable {
 
 	//bi-directional many-to-one association to Audit
 	@OneToMany(mappedBy="entry")
-	private Set<Audit> audits;
+	private Set<Audit> audits = new HashSet<Audit>();
 
 	//bi-directional many-to-one association to Sense
 	@OneToMany(mappedBy="entry")
-	private Set<Sense> senses;
+	private Set<Sense> senses = new HashSet<Sense>();
 
 	//bi-directional many-to-one association to Unicode
 	@OneToMany(mappedBy="entry")
-	private Set<Unicode> unicodes;
+	private Set<Unicode> unicodes = new HashSet<Unicode>();
 
 	public Entry() {
 	}
@@ -161,7 +164,7 @@ public class Entry implements Serializable {
 		this.senses = senses;
 	}
 
-	public Sense addSens(Sense sens) {
+	public Sense addSense(Sense sens) {
 		getSenses().add(sens);
 		sens.setEntry(this);
 
