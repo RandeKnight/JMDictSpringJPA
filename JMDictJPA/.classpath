@@ -6,11 +6,13 @@
 	<classpathentry kind="src" path="src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry kind="lib" path="/usr/share/java/mysql-connector-java.jar"/>
+	<classpathentry kind="lib" path="/usr/share/java/slf4j-api.jar"/>
+	<classpathentry kind="lib" path="/usr/share/java/slf4j-simple.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/EclipseLink 2.5.0 - Kepler">
 		<attributes>
 			<attribute name="owner.project.facets" value="jpt.jpa"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/usr/share/java/mysql-connector-java.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

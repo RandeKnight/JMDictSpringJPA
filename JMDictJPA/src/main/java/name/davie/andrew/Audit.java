@@ -1,7 +1,9 @@
 package name.davie.andrew;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -16,10 +18,13 @@ public class Audit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID")
-	private String id;
+	private int id;
 
+	@Id
+	@Column(name="ENT_SEQ")
+	protected long ent_seq;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="UPD_DATE")
 	private Date updDate;
@@ -35,13 +40,10 @@ public class Audit implements Serializable {
 	public Audit() {
 	}
 
-	public String getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public Date getUpdDate() {
 		return this.updDate;
@@ -65,6 +67,18 @@ public class Audit implements Serializable {
 
 	public void setEntry(Entry entry) {
 		this.entry = entry;
+	}
+
+	public long getEnt_seq() {
+		return ent_seq;
+	}
+
+	public void setEnt_seq(long ent_seq) {
+		this.ent_seq = ent_seq;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

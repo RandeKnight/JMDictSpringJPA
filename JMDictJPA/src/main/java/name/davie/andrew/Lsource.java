@@ -1,6 +1,7 @@
 package name.davie.andrew;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -8,17 +9,21 @@ import javax.persistence.*;
  * The persistent class for the LSOURCE database table.
  * 
  */
-@Entity
+//@Entity
+@Embeddable
 @Table(name="LSOURCE")
 @NamedQuery(name="Lsource.findAll", query="SELECT l FROM Lsource l")
 public class Lsource implements Serializable {
 	private static final long serialVersionUID = 1L;
+/*
+	@Id
+	@Column(name="ID")
+	private long id;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID")
-	private String id;
-
+	@Column(name="ENT_SEQ")
+	protected long ent_seq;
+*/	
 	@Column(name="LANG")
 	private String lang;
 
@@ -30,23 +35,41 @@ public class Lsource implements Serializable {
 
 	@Column(name="VALUE")
 	private String value;
-
+/*
 	//bi-directional many-to-one association to Sense
 	@ManyToOne
-	@JoinColumn(name="SENSE_ID")
-	private Sense sense;
+	@JoinColumns({
+		@JoinColumn(name="SENSE_ID", referencedColumnName="ID"),
+		@JoinColumn(name="ENTRY_ENT_SEQ", referencedColumnName="ENT_SEQ")
+	})
+		private Sense sense;
 
 	public Lsource() {
 	}
 
-	public String getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
+		public Sense getSense() {
+		return this.sense;
+	}
 
+	public void setSense(Sense sense) {
+		this.sense = sense;
+	}
+
+	public long getEnt_seq() {
+		return ent_seq;
+	}
+
+	public void setEnt_seq(long ent_seq) {
+		this.ent_seq = ent_seq;
+	}
+*/
 	public String getLang() {
 		return this.lang;
 	}
@@ -79,12 +102,6 @@ public class Lsource implements Serializable {
 		this.value = value;
 	}
 
-	public Sense getSense() {
-		return this.sense;
-	}
 
-	public void setSense(Sense sense) {
-		this.sense = sense;
-	}
 
 }

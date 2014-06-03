@@ -15,7 +15,6 @@ import javax.persistence.PersistenceContext;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.springframework.test.context.ContextConfiguration;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -33,20 +32,28 @@ public class ImportEntry {
 		    final EntityManager em = factory.createEntityManager();
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
+			System.setProperty("entityExpansionLimit", "1000000");  //Doesn't work??  Had to put it in the run settings instead.
 			
 			DefaultHandler handler = new DefaultHandler() {
 
 				Entry entry = null;
 				Sense sense = null;
+				Lsource lsource = null;
 				Audit audit = null;
 				String thisNode = null;
 				Object currObject = null;
 				List<String> thisValue = null;
+				int senseNum = 0;
+				int lsourceNum = 0;  
+				int auditNum = 0;
 				public void startElement(String uri, String localName,
 						String qName, Attributes attributes)
 						throws SAXException {
 					switch (qName) {
 					case "entry":
+						senseNum = 0;  //reset counter at every entry.
+						lsourceNum=0;
+						auditNum = 0;
 						entry = new Entry();
 						currObject = entry;
 						break;
@@ -55,15 +62,31 @@ public class ImportEntry {
 						break;
 					case "sense":
 						sense = new Sense();
+						sense.setId(senseNum);
+						sense.setEnt_seq(entry.getEntSeq());
 						entry.addSense(sense);
 						sense.setEntry(entry);  //back reference
 						currObject = sense;
+						senseNum++;
 						break;
+					case "lsource":
+						lsource = new Lsource();
+						lsource.setId(lsourceNum);
+						lsource.setEnt_seq(entry.getEntSeq());
+						lsource.setLang(attributes.getValue("xml:lang"));
+						lsource.setLsType(attributes.getValue("ls_type"));
+						lsource.setLsWasei(attributes.getValue("ls_wasei"));
+						lsource.setSense(sense);
+						sense.addLsource(lsource);
+						lsourceNum++;
 					case "audit":
 						audit = new Audit();
+						audit.setId(auditNum);
+						audit.setEnt_seq(entry.getEntSeq());
 						entry.addAudit(audit);
 						audit.setEntry(entry); //back reference
 						currObject = audit;
+						auditNum++;
 					default:
 						thisNode=qName;	
 						thisValue = new ArrayList<String>();
@@ -82,7 +105,7 @@ public class ImportEntry {
 					String thisString = new String(ch, start, length);
 
 					//System.out.println("nodeName="+thisNode+" value1="+thisString);
-				
+
 					switch (thisNode) {
 					case "ent_seq":
 						System.out.println("entseq="+thisString);
@@ -98,6 +121,9 @@ public class ImportEntry {
 								entry.addUnicode(unicode);
 							}
 						}
+						break;
+					case "lsource":
+						lsource.setValue(thisString);
 						break;
 					default:
 						thisValue.add(thisString);

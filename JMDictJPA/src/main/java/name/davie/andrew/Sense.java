@@ -16,9 +16,13 @@ public class Sense implements Serializable {
 	protected static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID")
-	protected String id;
+	protected int id;
+	
+	@Id
+	@Column(name="ENT_SEQ")
+	protected long ent_seq;
 
 	@Column(name="ANT")
 	protected String ant;
@@ -54,7 +58,8 @@ public class Sense implements Serializable {
 	protected String xref;
 
 	//bi-directional many-to-one association to Lsource
-	@OneToMany(mappedBy="sense")
+	//@OneToMany(mappedBy="sense")
+	@ElementCollection
 	protected Set<Lsource> lsources;
 
 	//bi-directional many-to-one association to Entry
@@ -65,13 +70,10 @@ public class Sense implements Serializable {
 	public Sense() {
 	}
 
-	public String getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getAnt() {
 		return this.ant;
@@ -189,6 +191,26 @@ public class Sense implements Serializable {
 
 	public void setEntry(Entry entry) {
 		this.entry = entry;
+	}
+
+	public long getEnt_seq() {
+		return ent_seq;
+	}
+
+	public void setEnt_seq(long ent_seq) {
+		this.ent_seq = ent_seq;
+	}
+
+	public String getsInf() {
+		return sInf;
+	}
+
+	public void setsInf(String sInf) {
+		this.sInf = sInf;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
