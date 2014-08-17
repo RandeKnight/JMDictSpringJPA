@@ -59,4 +59,10 @@ public class UnicodePK implements Serializable {
 		
 		return hash;
 	}
+	public String getEnt_seq() {
+		return ent_seq;
+	}
+	public void setEnt_seq(String ent_seq) {
+		this.ent_seq = ent_seq;
+	}
 }

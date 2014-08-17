@@ -23,7 +23,17 @@ public class Unicode implements Serializable {
 	//bi-directional many-to-one association to Entry
 	@ManyToOne
 	@JoinColumn(name="ENTRY_ENT_SEQ")
-	private Entry entry;
+	protected Entry entry;
+	
+
+	public Entry getEntry() {
+		return this.entry;
+	}
+
+	public void setEntry(Entry entry) {
+		this.entry = entry;
+	}
+
 
 	public Unicode() {
 	}
@@ -47,12 +57,6 @@ public class Unicode implements Serializable {
 		this.literal = literal;
 	}
 
-	public Entry getEntry() {
-		return this.entry;
-	}
 
-	public void setEntry(Entry entry) {
-		this.entry = entry;
-	}
 
 }

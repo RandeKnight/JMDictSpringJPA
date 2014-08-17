@@ -69,7 +69,7 @@ public class ImportEntry {
 						currObject = sense;
 						senseNum++;
 						break;
-					case "lsource":
+/*					case "lsource":
 						lsource = new Lsource();
 						lsource.setId(lsourceNum);
 						lsource.setEnt_seq(entry.getEntSeq());
@@ -79,6 +79,8 @@ public class ImportEntry {
 						lsource.setSense(sense);
 						sense.addLsource(lsource);
 						lsourceNum++;
+						break;
+*/
 					case "audit":
 						audit = new Audit();
 						audit.setId(auditNum);
@@ -87,6 +89,7 @@ public class ImportEntry {
 						audit.setEntry(entry); //back reference
 						currObject = audit;
 						auditNum++;
+						break;
 					default:
 						thisNode=qName;	
 						thisValue = new ArrayList<String>();

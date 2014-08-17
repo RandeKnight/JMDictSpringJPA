@@ -9,13 +9,13 @@ import java.util.Date;
  * The persistent class for the DIC_NUMBER database table.
  * 
  */
-@Entity
-@Table(name="DIC_NUMBER")
+@Embeddable
+//@Table(name="DIC_NUMBER")
 //@NamedQuery(name="Audit.findAll", query="SELECT a FROM Audit a")
 public class Dic_Number implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	//@Id
 	@Column(name="unicode", length=5)
 	private String unicode;
 

@@ -69,7 +69,22 @@ public class Sense implements Serializable {
 
 	public Sense() {
 	}
+/*
+	public Lsource addLsource(Lsource lsource) {
+		getLsources().add(lsource);
+		lsource.setSense(this);
 
+		return lsource;
+	}
+
+	public Lsource removeLsource(Lsource lsource) {
+		getLsources().remove(lsource);
+		lsource.setSense(null);
+
+		return lsource;
+	}
+*/
+	
 	public int getId() {
 		return this.id;
 	}
@@ -171,19 +186,7 @@ public class Sense implements Serializable {
 		this.lsources = lsources;
 	}
 
-	public Lsource addLsource(Lsource lsource) {
-		getLsources().add(lsource);
-		lsource.setSense(this);
 
-		return lsource;
-	}
-
-	public Lsource removeLsource(Lsource lsource) {
-		getLsources().remove(lsource);
-		lsource.setSense(null);
-
-		return lsource;
-	}
 
 	public Entry getEntry() {
 		return this.entry;
